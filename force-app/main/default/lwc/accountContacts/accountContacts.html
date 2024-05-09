@@ -1,0 +1,15 @@
+<template>
+    <lightning-card title="Account Related Contacts" icon-name="standard:contact">
+        <div class="slds-m-around_medium">
+            <template if:true={contacts.data}>
+                <lightning-datatable data={contacts.data}
+                columns={columns}
+                key-field="id">
+                </lightning-datatable>
+                </template>
+                <template if:true={contacts.error}>
+                <p>Error loading contats.</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,20 @@
+<template>
+    <lightning-card title="Manage Repair Order (ID: recordId)">
+        <div class="slds-m-around_medium">
+            <lightning-card title="Technical" icon-name="standard:contact">
+                <lightning-button variant="brand" label="New" slot="actions" onclick={newTechnicalClick}></lightning-button>
+                <div class="slds-m-around_medium">
+                    <template if:true={repairOrders.data}>
+                        <lightning-datatable data={repairOrders.data}
+                        columns={columns}
+                        key-field="id">
+                        </lightning-datatable>
+                        </template>
+                        <template if:true={repairOrders.error}>
+                        <p>Error loading repair orders.</p>
+                    </template>
+                </div>
+            </lightning-card>
+        </div>
+    </lightning-card>
+</template>
