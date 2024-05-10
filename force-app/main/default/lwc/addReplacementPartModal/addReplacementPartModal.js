@@ -5,7 +5,7 @@ import Repair_order_Technician__c from "@salesforce/schema/Repair_order_Technici
 
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
-export default class AddTechnicalModal extends LightningModal {
+export default class AddReplacementPartModal extends LightningElement {
     objectApiName = Repair_order_Technician__c;
     // myfields = [Technician__c, Repair_Order__c];
     @api content;
@@ -14,7 +14,7 @@ export default class AddTechnicalModal extends LightningModal {
         const fields = event.detail.fields;
         this.template.querySelector('lightning-record-edit-form').submit(fields);
         const evt = new ShowToastEvent({
-            title: 'Add Technician',
+            title: 'Add Replacement Part',
             message: 'Created sucessfull',
             variant: 'success',
         });
