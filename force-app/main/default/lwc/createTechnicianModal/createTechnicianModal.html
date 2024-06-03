@@ -1,23 +1,30 @@
 <template>
-    <lightning-modal-header label="Add Technician"></lightning-modal-header>
+    <lightning-modal-header label="New Technician"></lightning-modal-header>
     <lightning-modal-body>
         <lightning-record-form 
             object-api-name={objectApiName}
+            onsuccess={handleSuccess}
             layout-type="Compact"
             columns="2"
         >
-             <!-- <lightning-messages> </lightning-messages>
+            <!-- <lightning-messages> </lightning-messages>
             <div class="slds-grid">
-               <div class="slds-col slds-size_1-of-3">
-                    <lightning-input-field field-name="Name"> </lightning-input-field>
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input-field field-name="Name" required> </lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-2">
-                    <lightning-input-field class="tech" field-name="Technician__c"> </lightning-input-field>
+                    <lightning-input-field field-name="OwnerId"> </lightning-input-field>
                 </div>
-                <div class="slds-col slds-size_1-of-2">
-                    <lightning-input-field disabled="true" value={content} field-name="Repair_Order__c"> </lightning-input-field>
-                </div> -->
             </div>
+            <div class="slds-grid">
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input-field field-name="Quantity__c"> </lightning-input-field>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input-field field-name="Utilization__c"> </lightning-input-field>
+                </div>
+            </div>
+            <lightning-input-field field-name="Status__c"> </lightning-input-field> -->
         </lightning-record-form>
     </lightning-modal-body>
     <lightning-modal-footer>

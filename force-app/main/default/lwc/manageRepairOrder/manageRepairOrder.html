@@ -1,47 +1,47 @@
 <template>
     <lightning-card title="Manage Repair Order">
-        <p>Id: {recordId}</p>
-        <div class="slds-m-around_medium">
-            <lightning-card title="Technical" icon-name="standard:customers">
-                <lightning-button variant="brand" label="New" slot="actions" onclick={newTechnicalClick}></lightning-button>
+        <lightning-tabset>
+            <lightning-tab label="Technical">
                 <div class="slds-m-around_medium">
-                    <!-- <template if:true={technicial.data}>
-                        <lightning-datatable data={technicial.data}
-                        columns={columnsTec}
-                        key-field="id">
-                        </lightning-datatable>
-                    </template>
-                    <template if:true={technicial.error}>
-                        <p>Error loading repair orders.</p>
-                    </template> -->
-                    <template if:true={technicial.data}>
-                        <div style="height: 200px;">
-                            <lightning-datatable
-                                    key-field="id"
-                                    data={technicial.data}
-                                    columns={columnsTec}
-                                    onrowaction={handleRowAction}>
-                            </lightning-datatable>
+                    <lightning-card title="Technical" icon-name="standard:customers">
+                        <lightning-button style="margin-right: 5px;" variant="brand" label="Connect" slot="actions" onclick={connectTechnicalClick}></lightning-button>
+                        <lightning-button variant="brand" label="New" slot="actions" onclick={newTechnicalClick}></lightning-button>
+                        <div class="slds-m-around_medium">
+                            <template if:true={repairTechnicial}>
+                                <div style="height: 300px;">
+                                    <lightning-datatable
+                                            key-field="id"
+                                            data={repairTechnicial}
+                                            columns={columnsTec}
+                                            onrowaction={handleTechnicalRowAction}>
+                                    </lightning-datatable>
+                                </div>
+                            </template>
                         </div>
-                    </template>
+                    </lightning-card>
                 </div>
-            </lightning-card>
-
-            <!-- <lightning-card title="Replacement Part" icon-name="standard:settings">
-                <lightning-button variant="brand" label="New" slot="actions" onclick={newReplacementPartClick}></lightning-button>
+            </lightning-tab>
+            
+            <lightning-tab label="Replacement Part">
                 <div class="slds-m-around_medium">
-                    <template if:true={replacementParts.data}>
-                        <div style="height: 300px;">
-                            <lightning-datatable
-                                    key-field="id"
-                                    data={replacementParts.data}
-                                    columns={columnsRP}
-                                    onrowaction={handleRowAction}>
-                            </lightning-datatable>
+                    <lightning-card title="Replacement Part" icon-name="standard:settings">
+                        <lightning-button variant="brand" label="Connect" slot="actions" onclick={connectReplacementPartClick}></lightning-button>
+                        <div class="slds-m-around_medium">
+                            <template if:true={repairReplacements}>
+                                <div style="height: 300px;">
+                                    <lightning-datatable
+                                            key-field="id"
+                                            data={repairReplacements}
+                                            columns={columnsRP}
+                                            onrowaction={handleRPartRowAction}>
+                                    </lightning-datatable>
+                                </div>
+                            </template>
                         </div>
-                    </template>
+                    </lightning-card>
                 </div>
-            </lightning-card> -->
-        </div>
+            </lightning-tab>
+            
+        </lightning-tabset>
     </lightning-card>
 </template>

@@ -11,14 +11,21 @@ export default class AddTechnicalModal extends LightningModal {
     @api content;
 
     save(event) {
-        const fields = event.detail.fields;
-        this.template.querySelector('lightning-record-edit-form').submit(fields);
-        const evt = new ShowToastEvent({
-            title: 'Add Technician',
-            message: 'Created sucessfull',
-            variant: 'success',
-        });
-        this.dispatchEvent(evt);
+        try{
+            var fields = event.detail.fields;
+            var tech = this.template.querySelector('.tech');
+            console.log(tech);
+            console.log(tech.value);
+            this.template.querySelector('lightning-record-edit-form').submit(fields);
+            const evt = new ShowToastEvent({
+                title: 'Add Technician',
+                message: 'Created sucessfull',
+                variant: 'success',
+            });
+            this.dispatchEvent(evt);
+        } catch(er) {
+            console.log(er);
+        }
     }
 
     saveAndNewClick(event) {

@@ -1,12 +1,12 @@
 import { api } from 'lwc';
 import LightningModal from 'lightning/modal';
 
-import Repair_order_Technician__c from "@salesforce/schema/Repair_order_Technician__c";
+import RepairOrder_ReplacementPart__c from "@salesforce/schema/RepairOrder_ReplacementPart__c";
 
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
-export default class AddReplacementPartModal extends LightningElement {
-    objectApiName = Repair_order_Technician__c;
+export default class AddReplacementPartModal extends LightningModal {
+    objectApiName = RepairOrder_ReplacementPart__c;
     // myfields = [Technician__c, Repair_Order__c];
     @api content;
 
