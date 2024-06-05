@@ -1,9 +1,9 @@
 <template>
     <lightning-card title="Manage Repair Order">
         <lightning-tabset>
-            <lightning-tab label="Technical">
+            <lightning-tab label="Technicians">
                 <div class="slds-m-around_medium">
-                    <lightning-card title="Technical" icon-name="standard:customers">
+                    <lightning-card title="Technicians" icon-name="standard:customers">
                         <lightning-button style="margin-right: 5px;" variant="brand" label="Connect" slot="actions" onclick={connectTechnicalClick}></lightning-button>
                         <lightning-button variant="brand" label="New" slot="actions" onclick={newTechnicalClick}></lightning-button>
                         <div class="slds-m-around_medium">
@@ -25,7 +25,8 @@
             <lightning-tab label="Replacement Part">
                 <div class="slds-m-around_medium">
                     <lightning-card title="Replacement Part" icon-name="standard:settings">
-                        <lightning-button variant="brand" label="Connect" slot="actions" onclick={connectReplacementPartClick}></lightning-button>
+                        <lightning-button style="margin-right: 5px;" variant="brand" label="Connect" slot="actions" onclick={connectReplacementPartClick}></lightning-button>
+                        <lightning-button variant="brand" label="New" slot="actions" onclick={newReplacementPartClick}></lightning-button>
                         <div class="slds-m-around_medium">
                             <template if:true={repairReplacements}>
                                 <div style="height: 300px;">

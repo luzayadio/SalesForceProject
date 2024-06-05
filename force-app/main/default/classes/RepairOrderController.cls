@@ -41,9 +41,18 @@ public with sharing class RepairOrderController {
     @AuraEnabled
     public static Repair_order_Technician__c insertTechnicalRepairOrder(Repair_order_Technician__c repairTecObj) {
         try {
-            System.debug('insertTechnicalRepairOrder');
             insert repairTecObj;
             return repairTecObj;
+        } catch (Exception exp) {
+            throw new AuraHandledException(exp.getMessage());
+        }
+    }
+
+    @AuraEnabled
+    public static RepairOrder_ReplacementPart__c insertReplacementPartRepairOrder(RepairOrder_ReplacementPart__c repairRepPObj) {
+        try {
+            insert repairRepPObj;
+            return repairRepPObj;
         } catch (Exception exp) {
             throw new AuraHandledException(exp.getMessage());
         }

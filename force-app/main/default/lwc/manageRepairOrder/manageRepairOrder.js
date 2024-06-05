@@ -1,8 +1,11 @@
 import { LightningElement, api, wire, track } from 'lwc';
+import LightningConfirm from 'lightning/confirm';
+
 import AddTechnicalModal from "c/addTechnicalModal";
 
 import AddReplacementPartModal from "c/addReplacementPartModal";
 import createTechnicianModal from "c/createTechnicianModal";
+import createReplacementPartModal from "c/createReplacementPartModal";
 
 import getRepairTechnical from "@salesforce/apex/RepairOrderController.getRepairTechnical";
 import getTechnical from "@salesforce/apex/RepairOrderController.getTechnical";
@@ -42,7 +45,6 @@ export default class ManageRepairOrder extends LightningElement {
     @track columnsRP = columnsRP;
 
     connectedCallback() {
-        console.log("connectedCallback");
         this.getRepairTechnicalJS();
         this.getRepairReplacementPartJS();
     }
@@ -80,10 +82,6 @@ export default class ManageRepairOrder extends LightningElement {
         console.log(result);
         // actualizar dados da lista
         await this.getRepairTechnicalJS();
-        /*  */
-        if(result == "again") {
-            await this.newTechnicalClick(event);
-        }
     }
 
     async newTechnicalClick(event) {
@@ -101,19 +99,22 @@ export default class ManageRepairOrder extends LightningElement {
         console.log(result);
         // actualizar dados da lista
         await this.getRepairTechnicalJS();
-        /*  */
-        if(result == "again") {
-            await this.newTechnicalClick(event);
-        }
     }
 
     async deleteTechnicalRow(row) {
         try{
-            const { Id } = row;
-
-            const d = await deleteTechnicalRepairOrder({ id: Id});
-            console.log(d);
-            await this.getRepairTechnicalJS();
+            const result = await LightningConfirm.open({
+                message: 'Are you sure you want to remove the Technician for this Repair Order?',
+                variant: 'header',
+                label: 'Delete Technician',
+                // setting theme would have no effect
+            });
+            if(result) {
+                const { Id } = row;
+                const d = await deleteTechnicalRepairOrder({ id: Id});
+                console.log(d);
+                await this.getRepairTechnicalJS();
+            }
         } catch(err) {
             console.log(err);
         }
@@ -138,10 +139,8 @@ export default class ManageRepairOrder extends LightningElement {
     /* START Replacement Part CODE */
     async getRepairReplacementPartJS() {
         var replacementParts = await getReplacementsPart();
-        console.log(replacementParts);
 
         getRepairReplacementsPart({repairOrderId: this.recordId}).then(result => {
-            console.log(result);
             this.repairReplacements = [...result].map(record => {
                 record["Name"] = replacementParts.find((e) => e["Id"] == record["Replacement_part__c"])["Name"];
                 record["Quantity"] = replacementParts.find((e) => e["Id"] == record["Replacement_part__c"])["Quantity__c"];
@@ -170,18 +169,39 @@ export default class ManageRepairOrder extends LightningElement {
         console.log(result);
         // actualizar dados da lista
         await this.getRepairReplacementPartJS();
-        /*  */
-        if(result == "again") {
-            await this.newReplacementPartClick(event);
-        }
+    }
+
+    async newReplacementPartClick(event) {
+        const result = await createReplacementPartModal.open({
+            // `label` is not included here in this example.
+            // it is set on lightning-modal-header instead
+            size: 'small',
+            description: '',
+            content: this.recordId,
+        });
+        
+        // if modal closed with X button, promise returns result = 'undefined'
+        // if modal closed with OK button, promise returns result = 'okay'
+        // if modal closed with SAVE & NEW button, promise returns result = 'again'
+        console.log(result);
+        // actualizar dados da lista
+        await this.getRepairReplacementPartJS();
     }
 
     async deleteRPartRow(row) {
         try{
-            const { Id } = row;
-            const d = await deleteReplacementPartOrder({ id: Id});
-            console.log(d);
-            await this.getRepairReplacementPartJS();
+            const result = await LightningConfirm.open({
+                message: 'Are you sure you want to remove the Replacement part for this Repair Order?',
+                variant: 'header',
+                label: 'Delete Replacement part',
+                // setting theme would have no effect
+            });
+            if(result) {
+                const { Id } = row;
+                const d = await deleteReplacementPartOrder({ id: Id});
+                console.log(d);
+                await this.getRepairReplacementPartJS();
+            }
         } catch(err) {
             console.log(err);
         }
